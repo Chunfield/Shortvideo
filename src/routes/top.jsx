@@ -220,6 +220,34 @@ function Toparea() {
             </div>
             <div className="signin"></div>
           </div>
+          <div>
+            <div className="signinarea">
+              <button className="signin-btn">
+                <svg
+                  width="18"
+                  height="18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className=""
+                  viewBox="0 0 18 18"
+                  id="svg_icon_avatar"
+                >
+                  <rect
+                    width="18"
+                    height="18"
+                    rx="9"
+                    fill="#fff"
+                    fillOpacity="0.3"
+                  ></rect>
+                  <path
+                    d="M2.244 14.946A8.978 8.978 0 019 11.893a8.978 8.978 0 016.756 3.053A8.978 8.978 0 019 18a8.978 8.978 0 01-6.756-3.054zM12.214 7.393a3.214 3.214 0 11-6.428 0 3.214 3.214 0 016.428 0z"
+                    fill="#fff"
+                  ></path>
+                </svg>
+                <p className="signin-text">登录</p>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

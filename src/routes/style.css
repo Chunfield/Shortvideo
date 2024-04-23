@@ -229,3 +229,28 @@ body {
   line-height: 20px;
   color: rgba(255, 255, 255, 0.6);
 }
+.signinarea {
+  list-style-type: none;
+  position: relative;
+  z-index: 99;
+  margin-left: 16px;
+}
+.signin-btn {
+  width: 88px;
+  height: 38px;
+  border-radius: 12px;
+  padding: 6px 16px;
+  align-items: center;
+  margin: 0;
+  font-size: 15px;
+  line-height: 23px;
+  display: flex;
+  border: 1px solid rgb(254, 44, 85);
+  background-color: rgb(254, 44, 85);
+  color: #fff;
+  font-weight: 500;
+  min-width: 88px;
+}
+.signin-text {
+  margin-left: 4px;
+}
