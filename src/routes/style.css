@@ -254,3 +254,15 @@ body {
 .signin-text {
   margin-left: 4px;
 }
+.scrollcontainer {
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+}
+.scrollitems {
+  width: 400px;
+  height: 400px;
+}
+.swipervideo {
+  pointer-events: none;
+}

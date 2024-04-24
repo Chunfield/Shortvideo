@@ -1,0 +1,6 @@
+.items {
+  background-color: aqua;
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+}
