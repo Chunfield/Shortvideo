@@ -7,20 +7,19 @@ body {
   background-image: url('https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/test.png');
   background-repeat: no-repeat;
   background-color: rgb(22, 24, 35);
+  height: 622px;
 }
 .topcontainer {
   display: flex;
   width: 100%;
   height: 68px;
-  /* background-color: aqua; */
 }
 .content {
   width: 100%;
 }
 .asidecontainer {
   width: 160px;
-  height: 842px;
-  /* background-color: blueviolet; */
+  height: 554px;
 }
 .alogo-p {
   position: relative;
@@ -50,6 +49,7 @@ body {
   flex-direction: column;
   flex-grow: 1;
   padding-bottom: 0;
+  overflow: hidden;
 }
 .rollarea {
   display: flex;
@@ -262,7 +262,4 @@ body {
 .scrollitems {
   width: 400px;
   height: 400px;
-}
-.swipervideo {
-  pointer-events: none;
 }

@@ -1,87 +1,114 @@
-// import { useState, useRef, useEffect } from 'react';
-
-// function Mainarea() {
-//   const [currentScrollIndex, setCurrentScrollIndex] = useState(0); // 初始化当前滚动索引
-//   const scrollContainerRef = useRef(null); // 用于访问DOM节点的引用
-
-//   const handleScroll = () => {
-//     const { scrollTop, clientHeight, scrollHeight } =
-//       scrollContainerRef.current;
-//     // 检查是否滚动到底部
-//     if (scrollTop + clientHeight >= scrollHeight) {
-//       // 切换到下一个div
-//       setCurrentScrollIndex(prevIndex => (prevIndex + 1) % 2);
-//       // 滚动回顶部
-//       scrollContainerRef.current.scrollTop = 0;
-//     }
-//   };
-//   useEffect(() => {
-//     const container = scrollContainerRef.current;
-//     if (container) {
-//       container.addEventListener('scroll', handleScroll);
-//       return () => container.removeEventListener('scroll', handleScroll); // 组件卸载时移除监听器
-//     }
-//   }, []);
-//   const getItemStyle = index => {
-//     if (index === currentScrollIndex) {
-//       return {
-//         display: 'block',
-//         height: '100%', // 确保div填满容器高度以触发滚动
-//       };
-//     }
-//     return {
-//       display: 'none',
-//     };
-//   };
-//   return (
-//     <div className="maincontainer">
-//       <div
-//         className="scrollcontainer"
-//         ref={scrollContainerRef}
-//         style={{ overflowY: 'scroll' }}
-//       >
-//         <div
-//           className="scrollitems"
-//           style={{ ...getItemStyle(0), backgroundColor: 'red' }}
-//         ></div>
-//         <div
-//           className="scrollitems"
-//           style={{ ...getItemStyle(1), backgroundColor: 'blue' }}
-//         ></div>
-//       </div>
-//     </div>
-//   );
-// }
-// export default Mainarea;
-// Import Swiper React components
+import { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel, Pagination } from 'swiper/modules';
+
+import videoSrc from '../../assets/mixkit-countryside-meadow-4075-medium.mp4';
 
 import './swiper.css';
 
 export default () => {
+  const videoRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  // const swiperRef = useRef(null);
+
+  useEffect(() => {
+    // const swiperInstance = swiperRef.current?.swiper;
+    // if (!swiperInstance) {
+    //   return;
+    // }
+
+    // const handleScroll = e => {
+    //   e.preventDefault();
+    //   if (e.deltaY < 0) {
+    //     swiperInstance.slideNext();
+    //   } else {
+    //     swiperInstance.slidePrev();
+    //   }
+    // };
+    // swiperRef.current.addEventListener('wheel', handleScroll);
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(videoRef.current.currentTime);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(videoRef.current.duration);
+    };
+    videoRef.current.addEventListener('timeupdate', handleTimeUpdate);
+    videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    return () => {
+      // swiperRef.current.removeEventListener('wheel', handleScroll);
+      videoRef.current.removeEventListener('timeupdate', handleTimeUpdate);
+      videoRef.current.removeEventListener(
+        'loadedmetadata',
+        handleLoadedMetadata,
+      );
+    };
+  }, []);
+
+  const handleProgressChange = e => {
+    videoRef.current.currentTime = e.target.value;
+    console.log(e.target.value);
+    videoRef.current.play();
+  };
+  const togglePlay = () => {
+    if (videoRef.current) {
+      const isPaused = videoRef.current.paused;
+      if (isPaused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
+
   return (
-    <Swiper
-      className="items"
-      spaceBetween={1}
-      slidesPerView={1}
-      direction="vertical"
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={swiper => console.log(swiper)}
-    >
-      <SwiperSlide>
-        <video
-          className="swipervideo"
-          width="100%"
-          height="300px"
-          controls
-          src="path_to_your_video1.mp4"
-          type="video/mp4"
-          muted
-          controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
-        />
-      </SwiperSlide>
-      <SwiperSlide>Slide 2</SwiperSlide>
-      <SwiperSlide>Slide 3</SwiperSlide>
-    </Swiper>
+    <>
+      <Swiper
+        id="myswiper"
+        className="items"
+        loop={true}
+        modules={[Mousewheel, Pagination]}
+        mousewheel={true}
+        spaceBetween={1}
+        slidesPerView={1}
+        direction={'vertical'}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={swiper => console.log(swiper)}
+      >
+        <SwiperSlide className="overlay-p">
+          <div className="videocontainer">
+            <video
+              className="swipervideo"
+              width="100%"
+              height="300px"
+              ref={videoRef}
+              src={videoSrc}
+              type="video/mp4"
+              muted
+              controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+            />
+          </div>
+          <div className="overlay" onClick={togglePlay}></div>
+          <div className="overlay-2">
+            <input
+              className="progress-bar"
+              type="range"
+              min="0"
+              max={duration}
+              value={currentTime}
+              onChange={handleProgressChange}
+            />
+            <button className="overlay-button" onClick={togglePlay}>
+              {videoRef.current && videoRef.current.paused ? '播放' : '暂停'}
+            </button>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+      </Swiper>
+    </>
   );
 };

@@ -1,12 +1,14 @@
 function Asidearea() {
   return (
     <div className="asidecontainer">
+      {/* 头部logo部分 */}
       <div className="alogo-p">
         <div className="alogoarea">
           <div className="alogo"></div>
         </div>
       </div>
       <div className="roll-p">
+        {/* 中间选项部分 */}
         <div className="rollarea">
           <div className="rollitems">
             <div
@@ -174,6 +176,7 @@ function Asidearea() {
           </div>
         </div>
       </div>
+      {/* 底部选项部分 */}
       <div className="fixedarea">
         <div className="fixeditems"></div>
       </div>
